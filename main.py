@@ -15,6 +15,14 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 import openai
 
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
 def add_user(first_name, last_name, age, phone_no, monthly_salary):
     """
     Add a new user to the customer data CSV file.
@@ -658,6 +666,8 @@ with st.sidebar.form(key='create_user_form'):
 agent = ReActAgent.from_tools(tools=tools,llm=llm,verbose=True)
 if query := st.chat_input("How can I help you with your loan today?"):
         st.chat_message("user").markdown(query)
+        st.session_state.messages.append({"role": "user", "content": query})
+    
         
         # Create context-aware prompt
         prompt = f"""You are a helpful loan assistant.
@@ -682,6 +692,7 @@ if query := st.chat_input("How can I help you with your loan today?"):
         response = agent.chat(prompt)
         with st.chat_message("assistant"):
             st.markdown(response)
+        st.session_state.messages.append({"role": "assistant", "content": response})
 
 
 # Footer
