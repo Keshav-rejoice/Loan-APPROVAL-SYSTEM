@@ -1,6 +1,8 @@
 import pandas as pd
 from math import floor
 from datetime import datetime
+import nltk
+nltk.download('punkt')
 import random
 from dateutil.relativedelta import relativedelta
 import streamlit as st
