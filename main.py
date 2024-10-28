@@ -636,7 +636,7 @@ def check_eligibility(phone_no, loan_amount, interest_rate, tenure):
         'message': "Eligible for loan" if approval else "Not Eligible for loan"
     }, 200 if approval else 403  # HTTP status codes
 
-st.set_page_config(page_title="Loan Assistant", page_icon="💰")
+# st.set_page_config(page_title="Loan Assistant", page_icon="💰")
 
 openai.api_key = st.secrets["OPEN_AI"]
 llm = OpenAI(model="gpt-4o", temperature=0.2)
